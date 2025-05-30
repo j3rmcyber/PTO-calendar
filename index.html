@@ -339,6 +339,19 @@
 
         // Federal holidays for 2024-2027
         const federalHolidays = {
+            2024: [
+                { month: 0, day: 1, name: "New Year's Day" },
+                { month: 0, day: 15, name: "MLK Day" },
+                { month: 1, day: 19, name: "Presidents Day" },
+                { month: 4, day: 27, name: "Memorial Day" },
+                { month: 5, day: 19, name: "Juneteenth" },
+                { month: 6, day: 4, name: "Independence Day" },
+                { month: 8, day: 2, name: "Labor Day" },
+                { month: 9, day: 14, name: "Columbus Day" },
+                { month: 10, day: 11, name: "Veterans Day" },
+                { month: 10, day: 28, name: "Thanksgiving" },
+                { month: 11, day: 25, name: "Christmas Day" }
+            ],
             2025: [
                 { month: 0, day: 1, name: "New Year's Day" },
                 { month: 0, day: 20, name: "MLK Day" },
@@ -424,18 +437,55 @@
         function updateStats() {
             document.getElementById('vacationDaysCount').textContent = vacationDays.size;
             
-            // Calculate total consecutive days off (simplified)
-            let totalConsecutive = 0;
-            const sortedDates = Array.from(vacationDays).map(dateStr => {
+            // Calculate total consecutive days off from all vacation periods
+            let totalConsecutiveDays = 0;
+            
+            if (vacationDays.size === 0) {
+                document.getElementById('totalDaysOff').textContent = 0;
+                return;
+            }
+            
+            // Get all vacation days and sort them
+            const vacationDatesList = Array.from(vacationDays).map(dateStr => {
                 const [year, month, day] = dateStr.split('-').map(Number);
                 return new Date(year, month, day);
             }).sort((a, b) => a - b);
             
-            // This is a simplified calculation - in reality you'd want more sophisticated logic
-            // to find the longest consecutive periods including weekends and holidays
-            totalConsecutive = vacationDays.size * 3; // Rough estimate
+            const processedDates = new Set();
             
-            document.getElementById('totalDaysOff').textContent = totalConsecutive;
+            // For each vacation day, if we haven't processed it yet, calculate its consecutive period
+            vacationDatesList.forEach(vacationDate => {
+                const vacationDateStr = `${vacationDate.getFullYear()}-${vacationDate.getMonth()}-${vacationDate.getDate()}`;
+                
+                if (!processedDates.has(vacationDateStr)) {
+                    let consecutiveCount = 0;
+                    
+                    // Find the start of this consecutive period
+                    let startDate = new Date(vacationDate);
+                    while (isDayOff(new Date(startDate.getTime() - 24*60*60*1000))) {
+                        startDate.setDate(startDate.getDate() - 1);
+                    }
+                    
+                    // Count all consecutive days from start
+                    let currentDate = new Date(startDate);
+                    while (isDayOff(currentDate)) {
+                        consecutiveCount++;
+                        const currentDateStr = `${currentDate.getFullYear()}-${currentDate.getMonth()}-${currentDate.getDate()}`;
+                        processedDates.add(currentDateStr);
+                        currentDate.setDate(currentDate.getDate() + 1);
+                    }
+                    
+                    totalConsecutiveDays += consecutiveCount;
+                }
+            });
+            
+            document.getElementById('totalDaysOff').textContent = totalConsecutiveDays;
+        }
+        
+        function isDayOff(date) {
+            return isWeekend(date) || 
+                   isFederalHoliday(date) || 
+                   isVacationDay(date);
         }
 
         function updateCalendar() {
