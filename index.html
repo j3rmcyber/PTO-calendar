@@ -13,7 +13,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             min-height: 100vh;
             padding: 20px;
         }
@@ -21,16 +21,17 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(30, 30, 45, 0.95);
             border-radius: 20px;
             padding: 30px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         h1 {
             text-align: center;
-            color: #2c3e50;
+            color: #e8eaf0;
             margin-bottom: 10px;
             font-size: 2.5em;
             font-weight: 700;
@@ -38,7 +39,7 @@
 
         .subtitle {
             text-align: center;
-            color: #7f8c8d;
+            color: #a0a8b8;
             margin-bottom: 30px;
             font-size: 1.1em;
         }
@@ -78,7 +79,7 @@
         .current-month {
             font-size: 1.8em;
             font-weight: 700;
-            color: #2c3e50;
+            color: #e8eaf0;
             min-width: 200px;
             text-align: center;
         }
@@ -117,15 +118,15 @@
             display: grid;
             grid-template-columns: repeat(7, 1fr);
             gap: 2px;
-            background: #ecf0f1;
+            background: #2a2a3e;
             padding: 10px;
             border-radius: 15px;
-            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
         }
 
         .calendar-header {
-            background: linear-gradient(45deg, #34495e, #2c3e50);
-            color: white;
+            background: linear-gradient(45deg, #4a5568, #2d3748);
+            color: #e8eaf0;
             padding: 15px;
             text-align: center;
             font-weight: 700;
@@ -135,7 +136,7 @@
         }
 
         .calendar-day {
-            background: white;
+            background: #3a3a4e;
             min-height: 80px;
             padding: 8px;
             border-radius: 8px;
@@ -145,18 +146,19 @@
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            color: #e8eaf0;
         }
 
         .calendar-day:hover {
             transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
             z-index: 10;
         }
 
         .calendar-day.other-month {
-            background: #f8f9fa;
-            color: #bdc3c7;
+            background: #2a2a3e;
+            color: #6a6a7a;
         }
 
         .calendar-day.federal-holiday {
@@ -172,7 +174,7 @@
         }
 
         .calendar-day.weekend {
-            background: linear-gradient(45deg, #95a5a6, #7f8c8d);
+            background: linear-gradient(45deg, #6c7b7f, #596164);
             color: white;
         }
 
@@ -207,6 +209,7 @@
             align-items: center;
             gap: 10px;
             font-weight: 600;
+            color: #e8eaf0;
         }
 
         .legend-color {
@@ -218,8 +221,8 @@
 
         .federal { background: linear-gradient(45deg, #e74c3c, #c0392b); }
         .vacation { background: linear-gradient(45deg, #27ae60, #2ecc71); }
-        .weekend { background: linear-gradient(45deg, #95a5a6, #7f8c8d); }
-        .workday { background: white; border: 2px solid #bdc3c7; }
+        .weekend { background: linear-gradient(45deg, #6c7b7f, #596164); }
+        .workday { background: #3a3a4e; border: 2px solid #6a6a7a; }
 
         .instructions {
             background: linear-gradient(45deg, #f39c12, #e67e22);
@@ -334,7 +337,7 @@
 
         const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-        // Federal holidays for 2024-2026
+        // Federal holidays for 2024-2027
         const federalHolidays = {
             2024: [
                 { month: 0, day: 1, name: "New Year's Day" },
@@ -374,6 +377,19 @@
                 { month: 10, day: 11, name: "Veterans Day" },
                 { month: 10, day: 26, name: "Thanksgiving" },
                 { month: 11, day: 25, name: "Christmas Day" }
+            ],
+            2027: [
+                { month: 0, day: 1, name: "New Year's Day" },
+                { month: 0, day: 18, name: "MLK Day" },
+                { month: 1, day: 15, name: "Presidents Day" },
+                { month: 4, day: 31, name: "Memorial Day" },
+                { month: 5, day: 18, name: "Juneteenth" },
+                { month: 6, day: 5, name: "Independence Day" },
+                { month: 8, day: 6, name: "Labor Day" },
+                { month: 9, day: 11, name: "Columbus Day" },
+                { month: 10, day: 11, name: "Veterans Day" },
+                { month: 10, day: 25, name: "Thanksgiving" },
+                { month: 11, day: 24, name: "Christmas Day" }
             ]
         };
 
