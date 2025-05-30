@@ -60,12 +60,12 @@ Thanksgiving: Take Friday → 4-day weekend
 Christmas/New Year: Strategic planning can create 9+ consecutive days off
 
 🚀 Getting Started
-Option 1: Use Online:
+* Option 1: Use Online:
 
 Simply visit the live calendar and start planning!
 
 
-Option 2: Run Locally:
+* Option 2: Run Locally:
 
 Clone this repository:
 
@@ -76,7 +76,7 @@ Open index.html in your web browser
 Start planning your vacation days!
 
 
-Option 3: Deploy Your Own:
+* Option 3: Deploy Your Own:
 
 Fork this repository
 
